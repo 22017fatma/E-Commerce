@@ -76,15 +76,13 @@ export const schema: Schema = {
   products,
   users,
   wishlists,
+  // relations
   addressessRelationWithUsers,
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
   cartsRelationWithCartsItems,
   cartsRelationWithUser,
   categoriesRelationWithProductCategories,
-
-  // relations
-
   cart_cardRelation,
   credit_cardManyRelation,
   order_itemsRelation,
