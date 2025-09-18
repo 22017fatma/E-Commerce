@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --config nodemon.dev.json",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "db:seed": "tsx ./src/scripts/seeds/index.ts"
   },
   "keywords": [],
   "author": "",

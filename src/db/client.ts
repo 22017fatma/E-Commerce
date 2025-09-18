@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config({
-  path: `${process.cwd()}/.env.dev`,
+  path: `${process.cwd()}/.env`,
 });
 import {
   drizzle,
@@ -8,24 +8,11 @@ import {
   MySql2DrizzleConfig,
 } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
-import { schema,users } from "../models/schema";
-import { faker } from "@faker-js/faker";
+import { schema } from "../models/schema";
 
 // import { CustomError } from "../middlewares/CustomError";
 
-
-dotenv.config();
-
-
-     //User Table
-export async function seedUser(count = 10) {
-  const usersArray = Array.from({ length: count }).map(() => ({
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-  }));
-  await db.insert(users).values(usersArray);
-  console.log("Users done");
-}
+//User Table
 
 const missingVars = [];
 
@@ -114,4 +101,3 @@ export async function closeDB(): Promise<void> {
   await pool.end();
   console.log("MySQL pool closed");
 }
-
