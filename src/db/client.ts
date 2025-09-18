@@ -8,20 +8,25 @@ import {
   MySql2DrizzleConfig,
 } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
-import { schema } from "../models/schema";
+import { schema,users } from "../models/schema";
+import { faker } from "@faker-js/faker";
+
 // import { CustomError } from "../middlewares/CustomError";
 
 
 dotenv.config();
 
-const poolConnection = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
 
-drizzle(poolConnection);
+     //User Table
+export async function seedUser(count = 10) {
+  const usersArray = Array.from({ length: count }).map(() => ({
+    email: faker.internet.email(),
+    password: faker.internet.password(),
+  }));
+  await db.insert(users).values(usersArray);
+  console.log("Users done");
+}
+
 const missingVars = [];
 
 if (!process.env.DB_HOST) missingVars.push("DB_HOST");
