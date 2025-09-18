@@ -1,5 +1,3 @@
-import type { AnyMySqlTable } from "drizzle-orm/mysql-core";
-import type { Relations } from "drizzle-orm";
 import {
   addresses,
   addressessRelationWithUsers,
@@ -37,7 +35,6 @@ import {
   orders,
   ordersRelationWithCreditCard,
   ordersRelationWithOrderItems,
-
 } from "../db/tables/orders/orders.table";
 import {
   product_images,
@@ -60,11 +57,8 @@ import {
 import {
   wishlists,
   wishlistsRelation,
-  wishlistsRelationWithUsers,
-} from "../db/tables/wishlists.table";
-import { Schema } from "inspector/promises";
-
-type Schema = Record<string, AnyMySqlTable | Relations>;
+  wishlistsRelationWithUsers
+ } from "../db/tables/wishlists.table";
 
 export const schema:Schema = {
   addresses,
@@ -121,6 +115,50 @@ export {
   users,
   wishlists,
   //relations
+  addressessRelationWithUsers,
+  cart_itemsRelation,
+  cartsItemsRelationWithCarts,
+  cartsRelationWithCartsItems,
+  cartsRelationWithUser,
+  categoriesRelationWithProductCategories,
+
+  // relations
+
+  cart_cardRelation,
+  credit_cardManyRelation,
+  order_itemsRelation,
+  ordersManyRelation,
+  product_categoriesRelation,
+  product_categoriesRelationWithcategories,
+  ordersRelationWithOrderItems,
+  product_imagesRelation,
+  cart_itemsManyRelation,
+  order_itemsManyRelation,
+  productManyRelation,
+  product_imagesManyRelation,
+  wishlistsManyRelation,
+  usersRelationWithCarts,
+  usersRelationWithCreditCards,
+  usersRelationWithwhishlists,
+  wishlistsRelation,
+  wishlistsRelationWithUsers,
+};
+
+export {
+  addresses,
+  cart_items,
+  carts,
+  categories,
+  credit_cards,
+  order_items,
+  product_categories,
+  orders,
+  product_images,
+  products,
+  users,
+  wishlists,
+
+  // relations
   addressessRelationWithUsers,
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
