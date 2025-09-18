@@ -7,7 +7,9 @@ import {
   
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../models/schema";
+import { credit_cards } from "./credit_cards.table"; 
+import { carts } from "./carts/carts.table";
+import { wishlists } from "./wishlists.table";
 import { relations } from "drizzle-orm/relations";
 
 
@@ -21,15 +23,15 @@ export const users = mysqlTable("users", {
 
 
 export const usersRelationWithwhishlists = relations(users, ({ one }) => ({
-  wishlists: one(schema.wishlists),
+  wishlists: one(wishlists),
 }));
 
 export const usersRelationWithCreditCards = relations(users, ({ many }) => ({
-  credit_cards: many(schema.credit_cards),
+  credit_cards: many(credit_cards),
 }));
 
 export const usersRelationWithCarts = relations(users, ({ many }) => ({
-  carts: many(schema.carts),
+  carts: many(carts),
 }));
 
 

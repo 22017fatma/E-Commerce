@@ -5,7 +5,8 @@ import {
   timestamp
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
+import { products } from "../products/products.table";
+import { orders } from "./orders.table";
 import { relations } from "drizzle-orm/relations";
 
 export const order_items = mysqlTable("order_items", {
@@ -18,15 +19,15 @@ export const order_items = mysqlTable("order_items", {
 });
 
 export const order_itemsRelation = relations(order_items, ({ one }) => ({
-  products: one(schema.products, {
+  products: one(products, {
     fields: [order_items.product_id],
-    references: [schema.products.id],
+    references: [products.id],
   }),
 }));
 
 export const ordersManyRelation = relations(order_items, ({ one }) => ({
-  orders: one(schema.orders, {
+  orders: one(orders, {
     fields: [order_items.order_id],
-    references: [schema.orders.id],
+    references: [orders.id],
   }),
 }));

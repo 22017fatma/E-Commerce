@@ -4,7 +4,8 @@ import {
   timestamp,
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../models/schema";
+import { products } from "./products/products.table";
+import { users } from "./users.table"; 
 import { relations } from "drizzle-orm/relations";
 
 
@@ -18,15 +19,15 @@ export const wishlists = mysqlTable("whishlists", {
 
 
 export const wishlistsRelation = relations(wishlists, ({ one }) => ({
-  products: one(schema.products, {
+  products: one(products, {
     fields:[wishlists.product_id],
-    references: [schema.products.id],
+    references: [products.id],
   }),
 }));
 
 export const wishlistsRelationWithUsers = relations(wishlists, ({ one }) => ({
-  users: one(schema.users, {
+  users: one(users, {
     fields: [wishlists.user_id],
-    references: [schema.users.id],
+    references: [users.id],
   }),
 }));

@@ -1,6 +1,7 @@
 import { mysqlTable, int, text, timestamp } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
+import { categories } from "./categories.table";
+import { products } from "../products/products.table";
 import { relations } from "drizzle-orm/relations";
 
 
@@ -14,16 +15,16 @@ export const product_categories = mysqlTable("product_categories", {
 });
 
 export const product_categoriesRelationWithcategories = relations(product_categories, ({ one }) => ({
-  categories: one(schema.categories, {
+  categories: one(categories, {
     fields: [product_categories.category_id],
-    references: [schema.categories.id],
+    references: [categories.id],
   }),
 }));
 
 
 export const product_categoriesRelation = relations(product_categories, ({ one }) => ({
-  products: one(schema.products, {
+  products: one(products, {
     fields:[product_categories.product_id],
-    references: [schema.products.id],
+    references: [products.id],
   }),
 }));

@@ -1,5 +1,5 @@
 import { mysqlTable, int, text, timestamp } from "drizzle-orm/mysql-core";
-import { schema } from "../../../models/schema";
+import { product_categories } from "./product_categories.table";
 import { relations } from "drizzle-orm/relations";
 
 export const categories = mysqlTable("categories", {
@@ -10,5 +10,5 @@ export const categories = mysqlTable("categories", {
 });
 
 export const categoriesRelationWithProductCategories = relations(categories, ({ many }) => ({
-  product_categories: many(schema.product_categories),
+  product_categories: many(product_categories),
 }));

@@ -1,44 +1,48 @@
+import type { AnyMySqlTable } from "drizzle-orm/mysql-core";
+import type { Relations } from "drizzle-orm";
 import {
   addresses,
-  addressessRelationWithUsers
+  addressessRelationWithUsers,
 } from "../db/tables/addresses.table";
 import {
   cart_items,
   cart_itemsRelation,
-  cartsItemsRelationWithCarts
+  cartsItemsRelationWithCarts,
 } from "../db/tables/carts/cart_items.table";
 import {
-  carts, cartsRelationWithCartsItems,
-  cartsRelationWithUser
+  carts,
+  cartsRelationWithCartsItems,
+  cartsRelationWithUser,
 } from "../db/tables/carts/carts.table";
 import {
   categories,
-  categoriesRelationWithProductCategories
+  categoriesRelationWithProductCategories,
 } from "../db/tables/categories/categories.table";
 import {
   credit_cards,
   cart_cardRelation,
-  credit_cardManyRelation
+  credit_cardManyRelation,
 } from "../db/tables/credit_cards.table";
 import {
   order_items,
   order_itemsRelation,
-  ordersManyRelation
- } from "../db/tables/orders/order_items.table";
+  ordersManyRelation,
+} from "../db/tables/orders/order_items.table";
 import {
   product_categories,
   product_categoriesRelation,
-  product_categoriesRelationWithcategories
- } from "../db/tables/categories/product_categories.table";
+  product_categoriesRelationWithcategories,
+} from "../db/tables/categories/product_categories.table";
 import {
   orders,
+  ordersRelationWithCreditCard,
   ordersRelationWithOrderItems,
 
 } from "../db/tables/orders/orders.table";
 import {
   product_images,
-  product_imagesRelation
- } from "../db/tables/products/products_images.table";
+  product_imagesRelation,
+} from "../db/tables/products/products_images.table";
 import {
   products,
   cart_itemsManyRelation,
@@ -46,20 +50,23 @@ import {
   productManyRelation,
   product_imagesManyRelation,
   wishlistsManyRelation,
- } from "../db/tables/products/products.table";
+} from "../db/tables/products/products.table";
 import {
   users,
   usersRelationWithCarts,
   usersRelationWithCreditCards,
-  usersRelationWithwhishlists
- } from "../db/tables/users.table";
+  usersRelationWithwhishlists,
+} from "../db/tables/users.table";
 import {
   wishlists,
   wishlistsRelation,
-  wishlistsRelationWithUsers
- } from "../db/tables/wishlists.table";
+  wishlistsRelationWithUsers,
+} from "../db/tables/wishlists.table";
+import { Schema } from "inspector/promises";
 
-export const schema = {
+type Schema = Record<string, AnyMySqlTable | Relations>;
+
+export const schema:Schema = {
   addresses,
   cart_items,
   carts,
@@ -72,6 +79,7 @@ export const schema = {
   products,
   users,
   wishlists,
+  //relations
   addressessRelationWithUsers,
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
@@ -84,6 +92,48 @@ export const schema = {
   ordersManyRelation,
   product_categoriesRelation,
   product_categoriesRelationWithcategories,
+  ordersRelationWithCreditCard,
+  ordersRelationWithOrderItems,
+  product_imagesRelation,
+  cart_itemsManyRelation,
+  order_itemsManyRelation,
+  productManyRelation,
+  product_imagesManyRelation,
+  wishlistsManyRelation,
+  usersRelationWithCarts,
+  usersRelationWithCreditCards,
+  usersRelationWithwhishlists,
+  wishlistsRelation,
+  wishlistsRelationWithUsers,
+};
+
+export {
+  addresses,
+  cart_items,
+  carts,
+  categories,
+  credit_cards,
+  order_items,
+  product_categories,
+  orders,
+  product_images,
+  products,
+  users,
+  wishlists,
+  //relations
+  addressessRelationWithUsers,
+  cart_itemsRelation,
+  cartsItemsRelationWithCarts,
+  cartsRelationWithCartsItems,
+  cartsRelationWithUser,
+  categoriesRelationWithProductCategories,
+  cart_cardRelation,
+  credit_cardManyRelation,
+  order_itemsRelation,
+  ordersManyRelation,
+  product_categoriesRelation,
+  product_categoriesRelationWithcategories,
+  ordersRelationWithCreditCard,
   ordersRelationWithOrderItems,
   product_imagesRelation,
   cart_itemsManyRelation,

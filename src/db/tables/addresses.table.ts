@@ -6,7 +6,7 @@ import {
   timestamp,
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../models/schema";
+import { users } from "./users.table"; 
 import { relations } from "drizzle-orm/relations";
 
 export const addresses = mysqlTable("addresses", {
@@ -21,8 +21,8 @@ export const addresses = mysqlTable("addresses", {
 });
 
 export const addressessRelationWithUsers = relations(addresses, ({ one }) => ({
-    users: one(schema.users, {
+    users: one(users, {
     fields: [addresses.user_id],
-    references: [schema.users.id],
+    references: [users.id],
   }),
 }));

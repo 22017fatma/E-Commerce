@@ -4,7 +4,7 @@ import {
   timestamp
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
+import { products } from "./products.table"; 
 import { relations } from "drizzle-orm/relations";
 
 export const product_images = mysqlTable("product_images", {
@@ -16,9 +16,9 @@ export const product_images = mysqlTable("product_images", {
 });
 
 export const product_imagesRelation = relations(product_images, ({ one }) => ({
-  products: one(schema.products, {
+  products: one(products, {
     fields:[product_images.product_id],
-    references: [schema.products.id],
+    references: [products.id],
   }),
 }));
 

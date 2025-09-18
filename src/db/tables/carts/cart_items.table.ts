@@ -4,7 +4,8 @@ import {
   timestamp
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
+import { products } from "../products/products.table";
+import { carts } from "./carts.table";
 import { relations } from "drizzle-orm/relations";
 
 export const cart_items = mysqlTable("cart_items", {
@@ -18,15 +19,15 @@ export const cart_items = mysqlTable("cart_items", {
 
 
 export const cart_itemsRelation = relations(cart_items, ({ one }) => ({
-  products: one(schema.products, {
+  products: one(products, {
     fields:[cart_items.product_id],
-    references: [schema.products.id],
+    references: [products.id],
   }),
 }));
 
 export const cartsItemsRelationWithCarts = relations(cart_items, ({ one }) => ({
-     carts: one(schema.carts, {
+     carts: one(carts, {
       fields: [cart_items.cart_id],
-      references: [schema.carts.id],
+      references: [carts.id],
     }),
 }));
