@@ -1,10 +1,6 @@
 import { mysqlTable, int, decimal, timestamp } from "drizzle-orm/mysql-core";
 
-<<<<<<< HEAD
-import { products } from "../products/products.table";
-import { orders } from "./orders.table";
-=======
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
+
 import { relations } from "drizzle-orm/relations";
 import { products } from "../products/products.table";
 import { orders } from "./orders.table";

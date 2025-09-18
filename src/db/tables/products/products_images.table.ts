@@ -1,9 +1,5 @@
 import { mysqlTable, int, timestamp } from "drizzle-orm/mysql-core";
 
-<<<<<<< HEAD
-import { products } from "./products.table"; 
-=======
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
 import { relations } from "drizzle-orm/relations";
 import { products } from "./products.table";
 
@@ -17,11 +13,8 @@ export const product_images = mysqlTable("product_images", {
 
 export const product_imagesRelation = relations(product_images, ({ one }) => ({
   products: one(products, {
-<<<<<<< HEAD
     fields:[product_images.product_id],
-=======
-    fields: [product_images.product_id],
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
+
     references: [products.id],
   }),
 }));

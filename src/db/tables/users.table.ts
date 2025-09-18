@@ -1,19 +1,5 @@
 import { mysqlTable, int, varchar, timestamp } from "drizzle-orm/mysql-core";
 
-<<<<<<< HEAD
-import {
-  mysqlTable,
-  int,
-  varchar,
-  timestamp,
-  
-} from "drizzle-orm/mysql-core";
-
-import { credit_cards } from "./credit_cards.table"; 
-import { carts } from "./carts/carts.table";
-import { wishlists } from "./wishlists.table";
-=======
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
 import { relations } from "drizzle-orm/relations";
 import { carts } from "./carts/carts.table";
 import { credit_cards } from "./credit_cards.table";

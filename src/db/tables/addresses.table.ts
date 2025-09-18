@@ -6,10 +6,6 @@ import {
   timestamp,
 } from "drizzle-orm/mysql-core";
 
-<<<<<<< HEAD
-import { users } from "./users.table"; 
-=======
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
 import { relations } from "drizzle-orm/relations";
 import { users } from "./users.table";
 
@@ -25,11 +21,7 @@ export const addresses = mysqlTable("addresses", {
 });
 
 export const addressessRelationWithUsers = relations(addresses, ({ one }) => ({
-<<<<<<< HEAD
     users: one(users, {
-=======
-  users: one(users, {
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
     fields: [addresses.user_id],
     references: [users.id],
   }),

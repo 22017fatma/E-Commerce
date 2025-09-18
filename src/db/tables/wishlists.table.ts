@@ -1,10 +1,6 @@
 import { mysqlTable, int, timestamp } from "drizzle-orm/mysql-core";
 
-<<<<<<< HEAD
-import { products } from "./products/products.table";
-import { users } from "./users.table"; 
-=======
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
+
 import { relations } from "drizzle-orm/relations";
 import { products } from "./products/products.table";
 import { users } from "./users.table";
@@ -19,11 +15,7 @@ export const wishlists = mysqlTable("whishlists", {
 
 export const wishlistsRelation = relations(wishlists, ({ one }) => ({
   products: one(products, {
-<<<<<<< HEAD
     fields:[wishlists.product_id],
-=======
-    fields: [wishlists.product_id],
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
     references: [products.id],
   }),
 }));

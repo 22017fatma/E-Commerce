@@ -6,11 +6,6 @@ import {
   timestamp,
 } from "drizzle-orm/mysql-core";
 
-<<<<<<< HEAD
-import { order_items } from "./order_items.table";
-import { credit_cards } from "../credit_cards.table"; 
-=======
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
 import { relations } from "drizzle-orm/relations";
 import { credit_cards } from "../credit_cards.table";
 import { order_items } from "./order_items.table";
@@ -30,16 +25,10 @@ export const ordersRelationWithOrderItems = relations(orders, ({ many }) => ({
   order_items: many(order_items),
 }));
 
-<<<<<<< HEAD
-
 export const ordersRelationWithCreditCard = relations(orders, ({ one }) => ({
   credit_cards: one(credit_cards, {
     fields:[orders.credit_card_id],
-=======
-export const ordersManyRelation = relations(orders, ({ one }) => ({
-  credit_cards: one(credit_cards, {
-    fields: [orders.credit_card_id],
->>>>>>> ae22fd7bbb76e636c2eeba7628fbf129e0f2e12b
+
     references: [credit_cards.id],
   }),
 }));

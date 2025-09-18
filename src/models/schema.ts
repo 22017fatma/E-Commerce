@@ -1,3 +1,5 @@
+import type { AnyMySqlTable } from "drizzle-orm/mysql-core";
+import type { Relations } from "drizzle-orm";
 import {
   addresses,
   addressessRelationWithUsers,
@@ -57,51 +59,11 @@ import {
 import {
   wishlists,
   wishlistsRelation,
-  wishlistsRelationWithUsers
- } from "../db/tables/wishlists.table";
-
-export const schema:Schema = {
-  addresses,
-  cart_items,
-  carts,
-  categories,
-  credit_cards,
-  order_items,
-  product_categories,
-  orders,
-  product_images,
-  products,
-  users,
-  wishlists,
-  //relations
-  addressessRelationWithUsers,
-  cart_itemsRelation,
-  cartsItemsRelationWithCarts,
-  cartsRelationWithCartsItems,
-  cartsRelationWithUser,
-  categoriesRelationWithProductCategories,
-  cart_cardRelation,
-  credit_cardManyRelation,
-  order_itemsRelation,
-  ordersManyRelation,
-  product_categoriesRelation,
-  product_categoriesRelationWithcategories,
-  ordersRelationWithCreditCard,
-  ordersRelationWithOrderItems,
-  product_imagesRelation,
-  cart_itemsManyRelation,
-  order_itemsManyRelation,
-  productManyRelation,
-  product_imagesManyRelation,
-  wishlistsManyRelation,
-  usersRelationWithCarts,
-  usersRelationWithCreditCards,
-  usersRelationWithwhishlists,
-  wishlistsRelation,
   wishlistsRelationWithUsers,
-};
+} from "../db/tables/wishlists.table";
 
-export {
+type Schema = Record<string, AnyMySqlTable | Relations>;
+export const schema: Schema = {
   addresses,
   cart_items,
   carts,
@@ -114,7 +76,6 @@ export {
   products,
   users,
   wishlists,
-  //relations
   addressessRelationWithUsers,
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
