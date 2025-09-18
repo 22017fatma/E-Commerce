@@ -1,11 +1,8 @@
-import {
-  mysqlTable,
-  int,
-  timestamp
-} from "drizzle-orm/mysql-core";
+import { mysqlTable, int, timestamp } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
 import { relations } from "drizzle-orm/relations";
+import { products } from "../products/products.table";
+import { carts } from "./carts.table";
 
 export const cart_items = mysqlTable("cart_items", {
   id: int("id").autoincrement().primaryKey(),
@@ -16,17 +13,16 @@ export const cart_items = mysqlTable("cart_items", {
   updated_at: timestamp("updated_at", { mode: "date" }).defaultNow(),
 });
 
-
 export const cart_itemsRelation = relations(cart_items, ({ one }) => ({
-  products: one(schema.products, {
-    fields:[cart_items.product_id],
-    references: [schema.products.id],
+  products: one(products, {
+    fields: [cart_items.product_id],
+    references: [products.id],
   }),
 }));
 
 export const cartsItemsRelationWithCarts = relations(cart_items, ({ one }) => ({
-     carts: one(schema.carts, {
-      fields: [cart_items.cart_id],
-      references: [schema.carts.id],
-    }),
+  carts: one(carts, {
+    fields: [cart_items.cart_id],
+    references: [carts.id],
+  }),
 }));

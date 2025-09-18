@@ -1,11 +1,7 @@
-import {
-  mysqlTable,
-  int,
-  timestamp
-} from "drizzle-orm/mysql-core";
+import { mysqlTable, int, timestamp } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
 import { relations } from "drizzle-orm/relations";
+import { products } from "./products.table";
 
 export const product_images = mysqlTable("product_images", {
   id: int("id").autoincrement().primaryKey(),
@@ -16,9 +12,8 @@ export const product_images = mysqlTable("product_images", {
 });
 
 export const product_imagesRelation = relations(product_images, ({ one }) => ({
-  products: one(schema.products, {
-    fields:[product_images.product_id],
-    references: [schema.products.id],
+  products: one(products, {
+    fields: [product_images.product_id],
+    references: [products.id],
   }),
 }));
-

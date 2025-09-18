@@ -1,8 +1,8 @@
 import { mysqlTable, int, text, timestamp } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
 import { relations } from "drizzle-orm/relations";
-
+import { products } from "../products/products.table";
+import { categories } from "./categories.table";
 
 export const product_categories = mysqlTable("product_categories", {
   id: int("id").autoincrement().primaryKey(),
@@ -13,17 +13,22 @@ export const product_categories = mysqlTable("product_categories", {
   updated_at: timestamp("updated_at", { mode: "date" }).defaultNow(),
 });
 
-export const product_categoriesRelationWithcategories = relations(product_categories, ({ one }) => ({
-  categories: one(schema.categories, {
-    fields: [product_categories.category_id],
-    references: [schema.categories.id],
-  }),
-}));
+export const product_categoriesRelationWithcategories = relations(
+  product_categories,
+  ({ one }) => ({
+    categories: one(categories, {
+      fields: [product_categories.category_id],
+      references: [categories.id],
+    }),
+  })
+);
 
-
-export const product_categoriesRelation = relations(product_categories, ({ one }) => ({
-  products: one(schema.products, {
-    fields:[product_categories.product_id],
-    references: [schema.products.id],
-  }),
-}));
+export const product_categoriesRelation = relations(
+  product_categories,
+  ({ one }) => ({
+    products: one(products, {
+      fields: [product_categories.product_id],
+      references: [products.id],
+    }),
+  })
+);

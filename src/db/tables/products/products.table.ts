@@ -6,10 +6,12 @@ import {
   timestamp,
 } from "drizzle-orm/mysql-core";
 
-import { schema } from "../../../models/schema";
 import { relations } from "drizzle-orm/relations";
-
-
+import { cart_items } from "../carts/cart_items.table";
+import { product_categories } from "../categories/product_categories.table";
+import { order_items } from "../orders/order_items.table";
+import { wishlists } from "../wishlists.table";
+import { product_images } from "./products_images.table";
 
 export const products = mysqlTable("products", {
   id: int("id").autoincrement().primaryKey(),
@@ -21,21 +23,21 @@ export const products = mysqlTable("products", {
 });
 
 export const productManyRelation = relations(products, ({ many }) => ({
-  product_categories: many(schema.product_categories),
+  product_categories: many(product_categories),
 }));
 
 export const product_imagesManyRelation = relations(products, ({ many }) => ({
-  product_images: many(schema.product_images),
+  product_images: many(product_images),
 }));
 
 export const order_itemsManyRelation = relations(products, ({ many }) => ({
-  order_items: many(schema.order_items),
+  order_items: many(order_items),
 }));
 
 export const wishlistsManyRelation = relations(products, ({ many }) => ({
-  wishlists: many(schema.wishlists),
+  wishlists: many(wishlists),
 }));
 
 export const cart_itemsManyRelation = relations(products, ({ many }) => ({
-  cart_items: many(schema.cart_items),
+  cart_items: many(cart_items),
 }));
