@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config({
+  path: `${process.cwd()}/.env.dev`,
+});
 import {
   drizzle,
   MySql2Database,
@@ -6,7 +10,7 @@ import {
 import mysql from "mysql2/promise";
 import { schema } from "../models/schema";
 // import { CustomError } from "../middlewares/CustomError";
-import dotenv from "dotenv";
+
 
 dotenv.config();
 
@@ -20,14 +24,15 @@ const poolConnection = mysql.createPool({
 drizzle(poolConnection);
 const missingVars = [];
 
-if (!DB_HOST) missingVars.push("DB_HOST");
-if (!DB_USER) missingVars.push("DB_USER");
-if (!DB_NAME) missingVars.push("DB_NAME");
-
+if (!process.env.DB_HOST) missingVars.push("DB_HOST");
+if (!process.env.DB_USER) missingVars.push("DB_USER");
+if (!process.env.DB_NAME) missingVars.push("DB_NAME");
 
 if (missingVars.length > 0) {
   console.error("Missing environment variables:", missingVars.join(", "));
-  throw new Error (`Missing required environment variables: ${missingVars.join(", ")}` );
+  throw new Error(
+    `Missing required environment variables: ${missingVars.join(", ")}`
+  );
 }
 
 function createTimedPool(config: mysql.PoolOptions) {
@@ -40,14 +45,14 @@ function createTimedPool(config: mysql.PoolOptions) {
       const duration = Date.now() - start;
 
       if (duration > 500) {
-        console.warn(`⚠️ Slow query (${duration}ms):`, sql, params);
+        console.warn(`Slow query (${duration}ms):`, sql, params);
       } else {
-        console.log(`✅ Query in ${duration}ms`);
+        console.log(` Query in ${duration}ms`);
       }
 
       return result;
     } catch (err) {
-      console.error("❌ Query failed:", sql, err);
+      console.error("Query failed:", sql, err);
       throw err;
     }
   };
@@ -59,10 +64,10 @@ function createTimedPool(config: mysql.PoolOptions) {
 }
 
 const pool = createTimedPool({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -104,3 +109,4 @@ export async function closeDB(): Promise<void> {
   await pool.end();
   console.log("MySQL pool closed");
 }
+
