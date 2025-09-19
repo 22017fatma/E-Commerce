@@ -8,5 +8,5 @@ export async function seedUser(count = 10) {
     password: faker.internet.password(),
   }));
   await db.insert(users).values(usersArray);
-  console.log("Users done");
+  console.log("Users seeded successfully");
 }

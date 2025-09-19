@@ -2,6 +2,7 @@ import http from "http";
 import dotenv from "dotenv";
 import { app } from "./app.js";
 import { connectDB } from "./db/client.js";
+import { seedAll } from "./scripts/seeds/index.js";
 
 dotenv.config();
 
@@ -12,8 +13,6 @@ const server = http.createServer(app);
 async function startServer() {
   try {
     await connectDB();
-    // await seedUser(10);
-
     server.listen(PORT, () => {
       console.log(`Listening on port ${PORT}...`);
     });

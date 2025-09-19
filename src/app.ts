@@ -10,7 +10,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("E-Commerce API is running...");
 });
-
 export {
   app
 };
