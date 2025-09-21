@@ -1,10 +1,9 @@
 import { db } from "../../db/client";
-import { products, categories, product_categories } from "../../models/schema";
-import { eq } from "drizzle-orm";
+import { product_categories } from "../../models/schema";
 
 export async function seedProductCategories() {
-  
   const productList = await db.query.products.findMany();
+  console.log(productList);
 
     const categoryList = await db.query.categories.findMany();
 
@@ -17,6 +16,5 @@ export async function seedProductCategories() {
 
     await db.insert(product_categories).values(productCategoryData);
 
-    console.log("Product categories seeded successfully");
-
+  console.log("Product categories seeded successfully");
 }

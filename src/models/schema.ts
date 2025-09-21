@@ -62,8 +62,7 @@ import {
   wishlistsRelationWithUsers,
 } from "../db/tables/wishlists.table";
 
-type Schema = Record<string, AnyMySqlTable | Relations>;
-export const schema: Schema = {
+export const schema = {
   addresses,
   cart_items,
   carts,
