@@ -3,6 +3,7 @@ import { products, product_images } from "../../models/schema";
 
 export async function seedProducts() {
 
+
   try {
     const response = await fetch("https://fakestoreapi.com/products");
     const data = await response.json();

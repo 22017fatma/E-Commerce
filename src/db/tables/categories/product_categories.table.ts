@@ -8,11 +8,12 @@ import { categories } from "./categories.table";
 export const product_categories = mysqlTable("product_categories", {
   id: int("id").autoincrement().primaryKey(),
   name: text("name"),
-  category_id: int("category_id").notNull().unique(),
-  product_id: int("product_id").notNull().unique(),
+  category_id: int("category_id").notNull(),
+  product_id: int("product_id").notNull(),
   created_at: timestamp("created_at", { mode: "date" }).defaultNow(),
   updated_at: timestamp("updated_at", { mode: "date" }).defaultNow(),
 });
+
 
 
 export const product_categoriesRelationWithcategories = relations(product_categories, ({ one }) => ({
