@@ -2,6 +2,7 @@ import { seedUser } from "./users";
 import { seedProducts } from "./products";
 import { seedCategories } from "./categories";
 import { seedProductCategories } from "./product_categories";
+import { seedAddresses } from "./addresses";
 
 export const seedAll = async () => {
   try {
@@ -9,6 +10,7 @@ export const seedAll = async () => {
     await seedProducts();
     await seedCategories();
     await seedProductCategories();
+    await seedAddresses();
     console.log("Seeding done");
     process.exit(0);
   } catch (error) {

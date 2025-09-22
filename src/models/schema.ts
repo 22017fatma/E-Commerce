@@ -1,5 +1,4 @@
-import type { AnyMySqlTable } from "drizzle-orm/mysql-core";
-import type { Relations } from "drizzle-orm";
+
 import {
   addresses,
   addressessRelationWithUsers,
