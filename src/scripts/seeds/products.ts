@@ -2,17 +2,17 @@ import { db } from "../../db/client";
 import { products, product_images } from "../../models/schema";
 
 export async function seedProducts() {
-   
-    const response = await fetch("https://fakestoreapi.com/products");
-    const data = await response.json();
+  const response = await fetch("https://fakestoreapi.com/products");
+  const data = await response.json();
 
+  await db.transaction(async (tx) => {
     for (const item of data) {
       // product
-      const inserted: { id: number }[] = await db
+      const inserted: { id: number }[] = await tx
         .insert(products)
         .values({
           name: item.title,
-          stock: Math.floor(Math.random() * 100), // 0 → 99
+          stock: Math.floor(Math.random() * 100), 
           price: item.price,
         })
         .$returningId();
@@ -24,12 +24,12 @@ export async function seedProducts() {
       }
 
       // product image
-      await db.insert(product_images).values({
+      await tx.insert(product_images).values({
         product_id: productId,
         url: item.image,
       });
     }
 
     console.log(" Products + images seeded successfully");
-  
-};
+  });
+}

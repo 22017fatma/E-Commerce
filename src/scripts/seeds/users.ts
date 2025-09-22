@@ -1,36 +1,39 @@
-import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
 import { db } from "../../db/client";
 import { users, addresses } from "../../models/schema";
 
 const SALT_ROUNDS = 10;
 
-export async function seedUser(count = 10) {
-  for (let i = 0; i < count; i++) {
-    const plainPassword = faker.internet.password();
-    const hashedPassword = await bcrypt.hash(plainPassword, SALT_ROUNDS);
+export async function seedUsers() {
+  const response = await fetch("https://fakestoreapi.com/users");
+  const data = await response.json();
 
-    const userResult = await db
-      .insert(users)
-      .values({
-        email: faker.internet.email(),
-        password: hashedPassword,
-      })
-      .$returningId();
+  await db.transaction(async (tx) => {
+    for (const item of data) {
+      const hashedPassword = await bcrypt.hash(item.password, SALT_ROUNDS);
 
-    const userId = userResult[0]?.id;
-    if (!userId) {
-      throw new Error(" Failed to get User ID after insert");
+      //  Insert user
+      const userResult = await tx
+        .insert(users)
+        .values({
+          email: item.email,
+          password: hashedPassword,
+        })
+        .$returningId();
+
+      const userId = userResult[0]?.id;
+      if (!userId) throw new Error("Failed to get User ID after insert");
+
+      //  Insert address
+      await tx.insert(addresses).values({
+        user_id: userId,
+        name: `${item.name.firstname} ${item.name.lastname}`,
+        street: `${item.address.street} ${item.address.number}`,
+        city: item.address.city,
+        is_default: true,
+      });
     }
 
-    await db.insert(addresses).values({
-      user_id: userId,
-      name: faker.person.fullName(),
-      street: faker.location.streetAddress(),
-      city: faker.location.city(),
-      is_default: true,
-    });
-  }
-
-  console.log("Users + Addresses seeded successfully ");
+    console.log("Users + Addresses seeded successfully ");
+  });
 }
