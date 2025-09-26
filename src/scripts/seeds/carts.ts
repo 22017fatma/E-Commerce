@@ -3,9 +3,15 @@ import { carts,cart_items } from "../../models/schema";
 
 export async function seedCarts() {
     const response = await fetch("https://fakestoreapi.com/carts");
-  const data = await response.json();
+    const data = await response.json();
+
+    const usersList = await db.query.users.findMany();
+    const userIds = usersList.map(u => u.id);
   await db.transaction(async (tx) => {
     for (const item of data) {
+      if (!userIds.includes(item.userId)) {
+        console.warn(`Skipping cart for non-existent user ${ item.userId }`);
+      }
       const inserted: { id: number }[] = await tx
         .insert(carts)
         .values({

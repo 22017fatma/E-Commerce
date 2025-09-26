@@ -4,7 +4,7 @@ import { cart_items } from "../../models/schema";
 export async function seedCartItems() {
   const productList = await db.query.products.findMany();
   const cartsList = await db.query.carts.findMany();
-
+    
   const itemsToInsert = [];
   for (const cart of cartsList) {
     for (const product of productList) {
