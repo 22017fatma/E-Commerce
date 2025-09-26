@@ -18,8 +18,8 @@ export const products = mysqlTable("products", {
   name: text("name").notNull(),
   stock: int("stock").notNull(),
   price: decimal("price", { precision: 10, scale: 2 }).notNull(),
-  created_at: timestamp("created_at", { mode: "date" }).defaultNow(),
-  updated_at: timestamp("updated_at", { mode: "date" }).defaultNow(),
+  created_at: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  updated_at: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
 });
 
 export const productManyRelation = relations(products, ({ many }) => ({

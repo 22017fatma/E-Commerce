@@ -11,13 +11,33 @@ export async function login(req: Request, res: Response) {
 
     const user = await verifyUserPassword(email, password);
 
-    const token = jwt.sign(
-      { userId: user.id, email: user.email },
+    const accessToken = jwt.sign(
+      { userId: user.id, email: user.email, type: "access" },
       process.env.JWT_SECRET!,
       { expiresIn: "2h" }
     );
-    return res.json({ token, user });
 
+    const activeToken = jwt.sign(
+      { userId: user.id, email: user.email, type: "active" },
+      process.env.JWT_SECRET!,
+      { expiresIn: "7d" }
+    );
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 2 * 60 * 60 * 1000,
+    });
+
+    res.cookie("activeToken", activeToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    });
+
+    return res.json({ message: "Login successful", user });
   } catch (err: any) {
     if (err?.status)
       return res.status(err.status).json({ message: err.message });

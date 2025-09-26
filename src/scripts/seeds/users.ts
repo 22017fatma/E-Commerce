@@ -1,8 +1,12 @@
+import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import { db } from "../../db/client";
 import { users, addresses } from "../../models/schema";
 
-const SALT_ROUNDS = 10;
+
+
+dotenv.config();
+
 
 export async function seedUsers() {
   const response = await fetch("https://fakestoreapi.com/users");
@@ -10,7 +14,7 @@ export async function seedUsers() {
 
   await db.transaction(async (tx) => {
     for (const item of data) {
-      const hashedPassword = await bcrypt.hash(item.password, SALT_ROUNDS);
+      const hashedPassword = await bcrypt.hash(item.password, Number(process.env.SALT_ROUNDS));
 
       //  Insert user
       const userResult = await tx
