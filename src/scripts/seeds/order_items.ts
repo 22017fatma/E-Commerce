@@ -1,3 +1,4 @@
+import { error } from "console";
 import { db } from "../../db/client";
 import { order_items } from "../../models/schema";
 import { faker } from "@faker-js/faker";
@@ -5,11 +6,11 @@ import { faker } from "@faker-js/faker";
 export async function seedOrderItems() {
   const ordersList = await db.query.orders.findMany();
   const productsList = await db.query.products.findMany();
-  //check
-  if (!ordersList.length || !productsList.length) {
-    console.warn("cannot seed order items");
-    return;
-  }
+  // //check
+  // if (!ordersList.length || !productsList.length) {
+  //   console.warn("cannot seed order items");
+  //   return;
+  // }
   const orderItemsToInsert = [];
 
   for (const order of ordersList) {

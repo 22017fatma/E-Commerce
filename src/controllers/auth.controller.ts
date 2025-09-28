@@ -13,13 +13,13 @@ export async function login(req: Request, res: Response) {
 
     const accessToken = jwt.sign(
       { userId: user.id, email: user.email, type: "access" },
-      process.env.JWT_SECRET!,
+      process.env.JWT_SECRET_ACCESS!,
       { expiresIn: "2h" }
     );
 
-    const activeToken = jwt.sign(
-      { userId: user.id, email: user.email, type: "active" },
-      process.env.JWT_SECRET!,
+    const refreshToken = jwt.sign(
+      { userId: user.id, email: user.email, type: "refresh" },
+      process.env.JWT_SECRET_REFRESH!,
       { expiresIn: "7d" }
     );
 
@@ -30,7 +30,7 @@ export async function login(req: Request, res: Response) {
       maxAge: 2 * 60 * 60 * 1000,
     });
 
-    res.cookie("activeToken", activeToken, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",

@@ -22,7 +22,7 @@ export const orders = mysqlTable("orders", {
     onDelete: "set null",
     onUpdate: "cascade",
   }),
-  adress_id: int("adress_id").references(() => addresses.id, {
+  address_id: int("adress_id").references(() => addresses.id, {
     onDelete: "set null",
     onUpdate: "cascade",
   }),

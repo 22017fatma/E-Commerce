@@ -10,6 +10,9 @@ export async function seedOrders() {
   //Check
   if (!usersList.length || !cardsList.length || !addressesList.length) {
     console.warn("cannot seed orders");
+    console.log("userlist.length", usersList.length);
+    console.log("cardsList.length", cardsList.length);
+    console.log("addresseslist.length", addressesList.length);
     return;
   }
   const ordersToInsert = [];

@@ -11,17 +11,18 @@ import { seedCreditCards } from "./credit_cards";
 import { seedWishlists } from "./wishlists";
 export const seedAll = async () => {
   try {
-    await seedUsers();
-     await seedCarts();
+    // await seedUsers();
     await seedProducts();
+
     await seedCategories();
     await seedProductCategories();
     await seedAddresses();
+    await seedCarts();
     await seedCartItems();
-    // await seedOrders();
-    // await seedOrderItems();
-    // await seedCreditCards();
-    // await seedWishlists();
+    await seedCreditCards();
+    await seedOrders();
+    await seedOrderItems();
+    await seedWishlists();
 
     console.log("Seeding done");
     process.exit(0);
