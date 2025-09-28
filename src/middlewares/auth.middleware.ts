@@ -10,8 +10,11 @@ export function authJWT(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
-    (req as any).user = decoded;
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET_ACCESS!
+    ) as typeof res.locals.user;
+    res.locals.user = decoded;
     next();
   } catch (err) {
     return res.status(400).json({ message: "Invalid or expired token" });
