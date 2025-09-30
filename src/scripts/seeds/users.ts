@@ -3,18 +3,20 @@ import bcrypt from "bcrypt";
 import { db } from "../../db/client";
 import { users, addresses } from "../../models/schema";
 
-
-
 dotenv.config();
-
 
 export async function seedUsers() {
   const response = await fetch("https://fakestoreapi.com/users");
   const data = await response.json();
 
+  const roles = ["user", "admin"];
+  
   await db.transaction(async (tx) => {
     for (const item of data) {
-      const hashedPassword = await bcrypt.hash(item.password, Number(process.env.SALT_ROUNDS));
+      const hashedPassword = await bcrypt.hash(
+        item.password,
+        Number(process.env.SALT_ROUNDS)
+      );
 
       //  Insert user
       const userResult = await tx
@@ -22,6 +24,7 @@ export async function seedUsers() {
         .values({
           email: item.email,
           password: hashedPassword,
+          role: roles[Math.floor(Math.random() * roles.length)],
         })
         .$returningId();
 

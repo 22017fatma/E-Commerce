@@ -15,6 +15,13 @@
       "when": 1758911808183,
       "tag": "0001_naive_scourge",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1759148506527,
+      "tag": "0002_special_green_goblin",
+      "breakpoints": true
     }
   ]
 }

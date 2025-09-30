@@ -6,7 +6,7 @@ import { cart_items } from "./cart_items.table";
 
 export const carts = mysqlTable("carts", {
   id: int("id").autoincrement().primaryKey(),
-  user_id: int("userr_id").references(() =>users.id, {
+  user_id: int("user_id").references(() =>users.id, {
     onDelete: "set null",
     onUpdate:"cascade",
   }),

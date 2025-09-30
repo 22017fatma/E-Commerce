@@ -11,9 +11,8 @@ import { seedCreditCards } from "./credit_cards";
 import { seedWishlists } from "./wishlists";
 export const seedAll = async () => {
   try {
-    // await seedUsers();
+    await seedUsers();
     await seedProducts();
-
     await seedCategories();
     await seedProductCategories();
     await seedAddresses();

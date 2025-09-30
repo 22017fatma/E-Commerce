@@ -9,6 +9,7 @@ export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
   email: varchar("email", { length: 150 }).notNull().unique(),
   password: varchar("password", { length: 200 }).notNull(),
+  role: varchar("role", { length: 20 }).default("user").notNull(),
   created_at: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updated_at: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
 });
