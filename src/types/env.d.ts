@@ -1,3 +1,5 @@
+import { ROLES } from ".";
+
 export {};
 declare namespace Node.JS {
   export interface processENV {
@@ -19,7 +21,7 @@ declare global {
       user: {
         id: string;
         email: string;
-        role: string;
+        role: ROLES;
         created_at: string;
         updated_at: string;
       };

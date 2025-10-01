@@ -31,6 +31,16 @@ export const authenticateUser = async (
         refreshToken,
         process.env.JWT_SECRET_REFRESH!
       ) as typeof res.locals.user;
+      if (accessToken) {
+        try {
+          jwt.verify(accessToken, process.env.JWT_SECRET_ACCESS!);
+          return res.status(401).json({ message: "still Invalid access token" });
+        } catch (err) {
+          console.warn("Access token invalid or expired");
+          return res.status(401).json({ message: "Invalid access token" });
+        }
+      }
+    
 
       const newAccessToken = jwt.sign(
         {

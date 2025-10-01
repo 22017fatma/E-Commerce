@@ -1,21 +1,83 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/users.service";
+import bcrypt from "bcrypt";
+import {
+  getAllUsers,
+  getUserById,
+  createUser,
+  deleteUser,
+} from "../services/users.service";
 
-const userService = new UserService();
+export async function getAllUsersController(req: Request, res: Response) {
+  try {
+    const users = await getAllUsers();
+    res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
+}
 
-export const getAllUsers = async (req: Request, res: Response) => {
-  const result = await userService.getAllUsers();
-  res.json(result);
-};
+export async function getUserByIdController(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const user = await getUserById(Number(id));
 
-export const createUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-  const result = await userService.createUser({ name, email, password });
-  res.status(201).json(result);
-};
+    if (!user || user.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
-export const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  await userService.deleteUser(Number(id));
-  res.status(204).send();
-};
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
+}
+
+export async function createUserController(req: Request, res: Response) {
+  try {
+    const { name, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT_ROUNDS));
+    const result = await createUser({ name, email, password: hashedPassword });
+
+    res.status(201).json({
+      success: true,
+      message: "User created successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
+}
+
+export async function deleteUserController(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    await deleteUser(Number(id));
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
+}
