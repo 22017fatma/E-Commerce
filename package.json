@@ -7,7 +7,7 @@
     "dev": "nodemon --config nodemon.dev.json",
     "build": "tsc",
     "start": "node dist/server.js",
-    "db:push": "drizzle-kit push:mysql",
+    "db:push": "drizzle-kit push",
     "db:fresh": "tsx ./src/scripts/seeds/migrateFresh.ts && npm run db:push",
     "db:seed": "tsx ./src/scripts/seeds/index.ts"
   },

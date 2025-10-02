@@ -5,6 +5,7 @@ import {
   getUserById,
   createUser,
   deleteUser,
+  updateUser,
 } from "../services/users.service";
 
 export async function getAllUsersController(req: Request, res: Response) {
@@ -73,6 +74,36 @@ export async function deleteUserController(req: Request, res: Response) {
     res.status(200).json({
       success: true,
       message: "User deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
+}
+
+export async function updateUserController(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const { name, email, password } = req.body;
+
+    let updatedData: { name?: string; email?: string; password?: string } = {};
+    if (name) updatedData.name = name;
+    if (email) updatedData.email = email;
+    if (password) {
+      updatedData.password = await bcrypt.hash(
+        password,
+        Number(process.env.SALT_ROUNDS)
+      );
+    }
+
+    const result = await updateUser(Number(id), updatedData);
+
+    res.status(200).json({
+      success: true,
+      message: "User updated successfully",
+      data: result,
     });
   } catch (error) {
     res.status(500).json({

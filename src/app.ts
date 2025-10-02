@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route";
 import productsRouter from "./routes/products.route";
 import userRoutes from "./routes/user.route";
+import adminRouter from "./routes/admin.route";
 
 
 const app = express();
@@ -11,6 +12,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productsRouter);
+app.use("/admin", adminRouter);
 
 app.get("/", (req, res) => {
   res.send("E-Commerce API is running...");
