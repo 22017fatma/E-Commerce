@@ -9,9 +9,11 @@ import { ROLES } from "../types";
 
 const userRoutes = Router();
 
+userRoutes.use(withAuth(ROLES.USER));
 
 
-userRoutes.put("/:id", withAuth(ROLES.USER), authorizeUserOrAdmin, updateUserController);
-userRoutes.delete("/:id", withAuth(ROLES.USER),authorizeUserOrAdmin, deleteUserController);
+
+userRoutes.put("/:id",  authorizeUserOrAdmin, updateUserController);
+userRoutes.delete("/:id",authorizeUserOrAdmin, deleteUserController);
 
 export default userRoutes;

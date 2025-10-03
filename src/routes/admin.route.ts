@@ -18,6 +18,27 @@ import {
   getOrdersController,
   updateOrderController,
 } from "../controllers/orders.controller";
+import {
+  createCategoryController,
+  deleteCategoryController,
+  getCategoryByIdController,
+  getCategoriesController,
+  updateCategoryController,
+} from "../controllers/categories.controller";
+import {
+  createWishlistController,
+  deleteWishlistController,
+  getWishlistByIdController,
+  getWishlistsController,
+  updateWishlistController,
+} from "../controllers/wishlist.controller";
+import {
+  createCreditCardController,
+  deleteCreditCardController,
+  getCreditCardByIdController,
+  getCreditCardsController,
+  updateCreditCardController,
+} from "../controllers/credit_card.controller";
 import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
@@ -39,5 +60,22 @@ adminRouter.get("/orders/:id", authorizeUserOrAdmin, getOrderByIdController);
 adminRouter.post("/orders", authorizeUserOrAdmin, createOrderController);
 adminRouter.put("/orders/:id", authorizeUserOrAdmin, updateOrderController);
 adminRouter.delete("/orders/:id", authorizeUserOrAdmin, deleteOrderController);
-
+//catogry
+adminRouter.get("/categories", authorizeUserOrAdmin, getCategoriesController);
+adminRouter.get("/categories/:id", authorizeUserOrAdmin, getCategoryByIdController);
+adminRouter.post("/categories", authorizeUserOrAdmin, createCategoryController);
+adminRouter.delete("/categories/:id", authorizeUserOrAdmin, deleteCategoryController);
+adminRouter.put("/categories/:id", authorizeUserOrAdmin, updateCategoryController);
+//wishlist
+adminRouter.get("/wishlists", authorizeUserOrAdmin, getWishlistsController);
+adminRouter.get("/wishlists/:id", authorizeUserOrAdmin, getWishlistByIdController);
+adminRouter.post("/wishlists", authorizeUserOrAdmin, createWishlistController);
+adminRouter.delete("/wishlists/:id", authorizeUserOrAdmin, deleteWishlistController);
+adminRouter.put("/wishlists/:id", authorizeUserOrAdmin, updateWishlistController);
+//credit card
+adminRouter.get("/credit_cards", authorizeUserOrAdmin, getCreditCardsController);
+adminRouter.get("/credit_cards/:id", authorizeUserOrAdmin, getCreditCardByIdController);
+adminRouter.post("/credit_cards", authorizeUserOrAdmin, createCreditCardController);
+adminRouter.delete("/credit_cards/:id", authorizeUserOrAdmin, deleteCreditCardController);
+adminRouter.put("/credit_cards/:id", authorizeUserOrAdmin, updateCreditCardController);
 export default adminRouter;
