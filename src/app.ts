@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route";
 import productsRouter from "./routes/products.route";
 import userRoutes from "./routes/user.route";
+import orderRouter from "./routes/order.route";
 import adminRouter from "./routes/admin.route";
 
 
@@ -12,6 +13,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productsRouter);
+app.use("/orders", orderRouter);
 app.use("/admin", adminRouter);
 
 app.get("/", (req, res) => {
