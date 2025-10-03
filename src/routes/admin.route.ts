@@ -39,6 +39,13 @@ import {
   getCreditCardsController,
   updateCreditCardController,
 } from "../controllers/credit_card.controller";
+import {
+  createCartController,
+  deleteCartController,
+  getCartsController,
+  getCartByIdController,
+  updateCartController,
+} from "../controllers/carts.controller";
 import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
@@ -78,4 +85,10 @@ adminRouter.get("/credit_cards/:id", authorizeUserOrAdmin, getCreditCardByIdCont
 adminRouter.post("/credit_cards", authorizeUserOrAdmin, createCreditCardController);
 adminRouter.delete("/credit_cards/:id", authorizeUserOrAdmin, deleteCreditCardController);
 adminRouter.put("/credit_cards/:id", authorizeUserOrAdmin, updateCreditCardController);
+//cart
+adminRouter.get("/carts", authorizeUserOrAdmin, getCartsController);
+adminRouter.get("/carts/:id", authorizeUserOrAdmin, getCartByIdController);
+adminRouter.post("/carts", authorizeUserOrAdmin, createCartController);
+adminRouter.delete("/carts/:id", authorizeUserOrAdmin, deleteCartController);
+adminRouter.put("/carts/:id", authorizeUserOrAdmin, updateCartController);
 export default adminRouter;
