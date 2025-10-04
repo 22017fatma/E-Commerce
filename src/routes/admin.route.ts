@@ -97,8 +97,8 @@ adminRouter.post("/products", addProductController);
 adminRouter.put("/products/:id", updateProductController);
 adminRouter.delete("/products/:id", deleteProductController);
 //user
-adminRouter.get("/", authorizeUserOrAdmin, getAllUsersController);
-adminRouter.get("/:id", authorizeUserOrAdmin, getUserByIdController);
+adminRouter.get("/users", authorizeUserOrAdmin, getAllUsersController);
+adminRouter.get("/users/:id", authorizeUserOrAdmin, getUserByIdController);
 adminRouter.post("/user", authorizeUserOrAdmin, createUserController);
 adminRouter.delete("/users/:id", authorizeUserOrAdmin, deleteUserController);
 adminRouter.put("/user/:id", authorizeUserOrAdmin, updateUserController);
