@@ -3,6 +3,9 @@ import { withAuth } from "../middlewares/auth";
 import {
   addProductController,
   deleteProductController,
+  getProductByIdController,
+  getProductsController,
+  updateProductController,
 } from "../controllers/adminProduct.controller";
 import {
   createUserController,
@@ -88,7 +91,10 @@ const adminRouter = Router();
 
 adminRouter.use(withAuth(ROLES.ADMIN));
 //product
+adminRouter.get("/products", getProductsController);
+adminRouter.get("/products/:id", getProductByIdController);
 adminRouter.post("/products", addProductController);
+adminRouter.put("/products/:id", updateProductController);
 adminRouter.delete("/products/:id", deleteProductController);
 //user
 adminRouter.get("/", authorizeUserOrAdmin, getAllUsersController);
