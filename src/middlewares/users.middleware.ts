@@ -22,7 +22,7 @@ export function authorizeUserOrAdmin(
       return next();
     }
 
-    if (Number(user.id) === targetId) {
+    if (+user.id === targetId) {
       return next();
     }
 

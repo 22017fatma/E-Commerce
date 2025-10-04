@@ -11,7 +11,7 @@ declare namespace Node.JS {
     DB_DIALECT?: string;
     SALT_ROUNDS?: number;
     JWT_SECRET_ACCESS?: string;
-    JWT_SECRE_REFRESH?: string;
+    JWT_SECRET_REFRESH?: string;
   }
 }
 

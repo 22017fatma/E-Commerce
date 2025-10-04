@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ROLES } from "../types";
-import{returnUserValid} from "../services/users.service";
+import { returnUserValid } from "../services/users.service";
 
 export function authorizeRoles(...allowedRoles: ROLES[]) {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -11,13 +11,13 @@ export function authorizeRoles(...allowedRoles: ROLES[]) {
         .status(403)
         .json({ message: "Forbidden: insufficient permissions" });
     }
-    const returnUser = await returnUserValid();
-     if(!returnUser || returnUser.role !== user.role){
+    const returnUser = await returnUserValid(+user.id);
+    console.log("return user", returnUser);
+    if (!returnUser || returnUser.role !== user.role) {
       return res
         .status(403)
         .json({ message: "Forbidden: insufficient permissions" });
     }
-
 
     next();
   };

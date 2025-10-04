@@ -28,11 +28,11 @@ export async function updateUser(
   return await db.update(users).set(data).where(eq(users.id, id));
 }
 
-export async function returnUserValid() {
+export async function returnUserValid(userId:number) {
   const result = await db
     .select()
     .from(users)
-    .where(eq(users.id, +users.id))
+    .where(eq(users.id, +userId))
     .limit(1);
   return result[0];
 }

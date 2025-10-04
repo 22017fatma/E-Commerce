@@ -12,13 +12,13 @@ export async function login(req: Request, res: Response) {
     const user = await verifyUserPassword(email, password);
 
     const accessToken = jwt.sign(
-      { userId: user.id, email: user.email,role: user.role, type: "access" },
+      { id: user.id, email: user.email,role: user.role, type: "access" },
       process.env.JWT_SECRET_ACCESS!,
       { expiresIn: "2h" }
     );
 
     const refreshToken = jwt.sign(
-      { userId: user.id, email: user.email,role: user.role, type: "refresh" },
+      { id: user.id, email: user.email,role: user.role, type: "refresh" },
       process.env.JWT_SECRET_REFRESH!,
       { expiresIn: "7d" }
     );

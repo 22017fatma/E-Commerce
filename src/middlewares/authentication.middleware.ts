@@ -44,7 +44,7 @@ export const authenticateUser = async (
 
       const newAccessToken = jwt.sign(
         {
-          userId: decodedRefresh.id,
+          id: decodedRefresh.id,
           email: decodedRefresh.email,
           type: "access",
         },
