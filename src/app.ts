@@ -7,6 +7,10 @@ import orderRouter from "./routes/order.route";
 import catogryRouter from "./routes/category.route";
 import wishlistRouter from "./routes/wishlist.route";
 import creditCardRouter from "./routes/credit_card.route";
+import cart_itemRouter from "./routes/cart_item.route";
+import orderItemRouter from "./routes/order_item.route";
+import productCategoryRouter from "./routes/product_category.route";
+import productImgRouter from "./routes/product_img.route";
 import adminRouter from "./routes/admin.route";
 
 
@@ -20,6 +24,11 @@ app.use("/categories", catogryRouter);
 app.use("/wishlists", wishlistRouter);
 app.use("/credit_cards", creditCardRouter);
 app.use("/orders", orderRouter);
+app.use("/cart_items", cart_itemRouter);
+app.use("/order_items", orderItemRouter);
+app.use("/product_catogry", productCategoryRouter);
+app.use("/product_img", productImgRouter);
+
 
 app.use("/admin", adminRouter);
 

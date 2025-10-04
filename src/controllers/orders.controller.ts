@@ -6,7 +6,6 @@ import {
   deleteOrder,
   createOrder,
 } from "../services/order.service";
-import{db} from "../db/client";
 export async function getOrdersController(req: Request, res: Response) {
   try {
     const orders = await getAllOrders();
