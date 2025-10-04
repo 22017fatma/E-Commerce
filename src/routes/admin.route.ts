@@ -88,13 +88,13 @@ const adminRouter = Router();
 
 adminRouter.use(withAuth(ROLES.ADMIN));
 //product
-adminRouter.post("/", addProductController);
-adminRouter.delete("/:id", deleteProductController);
+adminRouter.post("/products", addProductController);
+adminRouter.delete("/products/:id", deleteProductController);
 //user
 adminRouter.get("/", authorizeUserOrAdmin, getAllUsersController);
 adminRouter.get("/:id", authorizeUserOrAdmin, getUserByIdController);
 adminRouter.post("/user", authorizeUserOrAdmin, createUserController);
-adminRouter.delete("/user/:id", authorizeUserOrAdmin, deleteUserController);
+adminRouter.delete("/users/:id", authorizeUserOrAdmin, deleteUserController);
 adminRouter.put("/user/:id", authorizeUserOrAdmin, updateUserController);
 //order
 adminRouter.get("/orders", authorizeUserOrAdmin, getOrdersController);
