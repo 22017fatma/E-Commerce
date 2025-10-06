@@ -13,7 +13,7 @@ import { ROLES } from "../types";
 const catogryRouter = Router();
 catogryRouter.use(withAuth(ROLES.USER));
 
-catogryRouter.get("/", authorizeUserOrAdmin, getCategoriesController);
+catogryRouter.get("/categories", authorizeUserOrAdmin, getCategoriesController);
 catogryRouter.get("/:id", authorizeUserOrAdmin, getCategoryByIdController);
 
 export default catogryRouter;

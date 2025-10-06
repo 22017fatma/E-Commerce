@@ -149,7 +149,7 @@ adminRouter.get("/product_categories", authorizeUserOrAdmin, getProductCategorie
 adminRouter.get("/product_categories/:id", authorizeUserOrAdmin, getProductCategoryByIdController);
 adminRouter.post("/product_categories", authorizeUserOrAdmin, createProductCategoryController);
 adminRouter.delete("/product_categories/:id", authorizeUserOrAdmin, deleteProductCategoryController);
-adminRouter.put("/:id", authorizeUserOrAdmin, updateProductCategoryController); 
+adminRouter.put("/product_categories/:id",authorizeUserOrAdmin,updateProductCategoryController); 
 //product image
 adminRouter.get("/product_images", authorizeUserOrAdmin, getProductImagesController);
 adminRouter.get("/product_images/:id", authorizeUserOrAdmin, getProductImageByIdController);

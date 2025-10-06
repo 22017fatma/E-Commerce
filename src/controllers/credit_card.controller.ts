@@ -42,12 +42,18 @@ export async function getCreditCardByIdController(req: Request, res: Response) {
 
 export async function createCreditCardController(req: Request, res: Response) {
   try {
-    const { data } = req.body;
-    const creditCard = await createCreditCard(data);
-    res.status(200).json({
-      success: true,
-      data: creditCard,
+    const { user_id, card_number, expire_date, type } = req.body;
+    const CreditCard = await createCreditCard({
+      user_id,
+      card_number,
+      expire_date,
+      type,
     });
+    
+    res.status(201).json({
+      success: true,
+      data:CreditCard,
+    })
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -77,10 +83,16 @@ export async function deleteCreditCardController(req: Request, res: Response) {
 export async function updateCreditCardController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const { data } = req.body;
-    const creditCard = await updateCreditCard(+id, data);
-    res.status(200).json({
+    const { user_id, card_number, expire_date, type } = req.body;
+    const creditCard = await updateCreditCard(+id, {
+      user_id,
+      card_number,
+      expire_date,
+      type,
+    });
+   res.status(200).json({
       success: true,
+      message: "Credit card updated successfully",
       data: creditCard,
     });
   } catch (error) {

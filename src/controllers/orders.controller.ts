@@ -58,6 +58,18 @@ export async function createOrderController(req: Request, res: Response) {
       total_price,
       status,
     });
+    if (
+      user_id === undefined ||
+      product_id === undefined ||
+      quantity === undefined ||
+      total_price === undefined ||
+      status === undefined
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
 
     res.status(201).json({
       success: true,
@@ -96,11 +108,18 @@ export async function updateOrderController(req: Request, res: Response) {
     const { id } = req.params;
     const { user_id, product_id, quantity, total_price, status } = req.body;
 
-    let updatedData: { user_id?: number; product_id?: number; quantity?: number; total_price?: number } = {};
+    let updatedData: {
+      user_id?: number;
+      product_id?: number;
+      quantity?: number;
+      total_price?: string;
+      status?: string;
+    } = {};
     if (user_id) updatedData.user_id = user_id;
     if (product_id) updatedData.product_id = product_id;
     if (quantity) updatedData.quantity = quantity;
     if (total_price) updatedData.total_price = total_price;
+    if (status) updatedData.status = status;
 
     const result = await updateOrder(Number(id), updatedData);
 
