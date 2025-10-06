@@ -8,7 +8,9 @@ import {
 } from "../services/order.service";
 export async function getOrdersController(req: Request, res: Response) {
   try {
-    const orders = await getAllOrders();
+    const { user } = res.locals;
+
+    const orders = await getAllOrders(user.role, +user.id);
     res.status(200).json({
       success: true,
       data: orders,
@@ -88,7 +90,8 @@ export async function createOrderController(req: Request, res: Response) {
 export async function deleteOrderController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteOrder(Number(id));
+    const { user } = res.locals;
+    await deleteOrder(+user.id, +id);
 
     res.status(200).json({
       success: true,
@@ -105,6 +108,8 @@ export async function deleteOrderController(req: Request, res: Response) {
 
 export async function updateOrderController(req: Request, res: Response) {
   try {
+    
+     const { user } = res.locals;
     const { id } = req.params;
     const { user_id, product_id, quantity, total_price, status } = req.body;
 
@@ -121,7 +126,7 @@ export async function updateOrderController(req: Request, res: Response) {
     if (total_price) updatedData.total_price = total_price;
     if (status) updatedData.status = status;
 
-    const result = await updateOrder(Number(id), updatedData);
+    const result = await updateOrder(+user.id, +id, updatedData);
 
     res.status(200).json({
       success: true,
