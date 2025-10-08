@@ -9,7 +9,8 @@ import {
 
 export async function getWishlistsController(req: Request, res: Response) {
   try {
-    const wishlists = await getAllWishlists();
+    const { user } = res.locals;
+    const wishlists = await getAllWishlists(user.role,+user.id);
     res.status(200).json({
       success: true,
       data: wishlists,
@@ -62,7 +63,8 @@ export async function createWishlistController(req: Request, res: Response) {
 export async function deleteWishlistController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteWishlist(Number(id));
+    const { user } = res.locals;
+    await deleteWishlist(+id,+user.id);
     res.status(200).json({
       success: true,
       message: "Wishlist deleted successfully",
@@ -79,11 +81,12 @@ export async function deleteWishlistController(req: Request, res: Response) {
 export async function updateWishlistController(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    const { user } = res.locals;
     const { user_id, product_id } = req.body;
     let updatedData: { user_id?: number; product_id?: number } = {};
     if (user_id) updatedData.user_id = user_id;
     if (product_id) updatedData.product_id = product_id;
-    const result = await updateWishlist(Number(id), updatedData);
+    const result = await updateWishlist(+id,+user.id, updatedData);
     res.status(200).json({
       success: true,
       message: "Wishlist updated successfully",

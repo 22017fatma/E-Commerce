@@ -9,7 +9,8 @@ import {
 
 export async function getAddressesController(req: Request, res: Response) {
   try {
-    const addresses = await getAllAddresses();
+    const { user } = res.locals;
+    const addresses = await getAllAddresses(user.role,+user.id);
     res.status(200).json({
       success: true,
       data: addresses,
@@ -67,7 +68,8 @@ export async function createAddressController(req: Request, res: Response) {
 export async function deleteAddressController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteAddress(+id);
+    const { user } = res.locals;
+    await deleteAddress(+id,+user.id);
     res.status(200).json({
       success: true,
       message: "Address deleted successfully",
@@ -84,6 +86,7 @@ export async function deleteAddressController(req: Request, res: Response) {
 export async function updateAddressController(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    const { user } = res.locals;
     const { user_id, name, street, city, is_default } = req.body;
 
     let updatedData: { user_id?: number; name?: string; street?: string; city?: string; is_default?: boolean } = {};
@@ -93,7 +96,7 @@ export async function updateAddressController(req: Request, res: Response) {
     if (city) updatedData.city = city;
     if (is_default) updatedData.is_default = is_default;
 
-    const result = await updateAddress(+id, updatedData);
+    const result = await updateAddress(+id,+user.id, updatedData);
     res.status(200).json({
       success: true,
       message: "Address updated successfully",

@@ -69,7 +69,8 @@ export async function createUserController(req: Request, res: Response) {
 export async function deleteUserController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteUser(Number(id));
+    const { user } = res.locals;
+    await deleteUser(+id,+user.id);
 
     res.status(200).json({
       success: true,
@@ -86,6 +87,7 @@ export async function deleteUserController(req: Request, res: Response) {
 export async function updateUserController(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    const { user } = res.locals;
     const { name, email, password } = req.body;
 
     let updatedData: { name?: string; email?: string; password?: string } = {};
@@ -98,7 +100,7 @@ export async function updateUserController(req: Request, res: Response) {
       );
     }
 
-    const result = await updateUser(Number(id), updatedData);
+    const result = await updateUser(+id,+user.id, updatedData);
 
     res.status(200).json({
       success: true,

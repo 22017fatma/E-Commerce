@@ -68,7 +68,7 @@ import {
   deleteProductCategoryController,
   getProductCategoryByIdController,
   getProductCategoriesController,
-  updateProductCategoryController
+  updateProductCategoryController,
 } from "../controllers/product_category.controller";
 import {
   createProductImageController,
@@ -84,7 +84,6 @@ import {
   getAddressesController,
   updateAddressController,
 } from "../controllers/address.controller";
-import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
 const adminRouter = Router();
@@ -97,70 +96,70 @@ adminRouter.post("/products", addProductController);
 adminRouter.put("/products/:id", updateProductController);
 adminRouter.delete("/products/:id", deleteProductController);
 //user
-adminRouter.get("/users", authorizeUserOrAdmin, getAllUsersController);
-adminRouter.get("/users/:id", authorizeUserOrAdmin, getUserByIdController);
-adminRouter.post("/user", authorizeUserOrAdmin, createUserController);
-adminRouter.delete("/users/:id", authorizeUserOrAdmin, deleteUserController);
-adminRouter.put("/user/:id", authorizeUserOrAdmin, updateUserController);
+adminRouter.get("/users", getAllUsersController);
+adminRouter.get("/users/:id", getUserByIdController);
+adminRouter.post("/user", createUserController);
+adminRouter.delete("/users/:id", deleteUserController);
+adminRouter.put("/user/:id", updateUserController);
 //order
-adminRouter.get("/orders", authorizeUserOrAdmin, getOrdersController);
-adminRouter.get("/orders/:id", authorizeUserOrAdmin, getOrderByIdController);
-adminRouter.post("/orders", authorizeUserOrAdmin, createOrderController);
-adminRouter.put("/orders/:id", authorizeUserOrAdmin, updateOrderController);
-adminRouter.delete("/orders/:id", authorizeUserOrAdmin, deleteOrderController);
+adminRouter.get("/orders", getOrdersController);
+adminRouter.get("/orders/:id", getOrderByIdController);
+adminRouter.post("/orders", createOrderController);
+adminRouter.put("/orders/:id", updateOrderController);
+adminRouter.delete("/orders/:id", deleteOrderController);
 //catogry
-adminRouter.get("/categories", authorizeUserOrAdmin, getCategoriesController);
-adminRouter.get("/categories/:id", authorizeUserOrAdmin, getCategoryByIdController);
-adminRouter.post("/categories", authorizeUserOrAdmin, createCategoryController);
-adminRouter.delete("/categories/:id", authorizeUserOrAdmin, deleteCategoryController);
-adminRouter.put("/categories/:id", authorizeUserOrAdmin, updateCategoryController);
+adminRouter.get("/categories", getCategoriesController);
+adminRouter.get("/categories/:id", getCategoryByIdController);
+adminRouter.post("/categories", createCategoryController);
+adminRouter.delete("/categories/:id", deleteCategoryController);
+adminRouter.put("/categories/:id", updateCategoryController);
 //wishlist
-adminRouter.get("/wishlists", authorizeUserOrAdmin, getWishlistsController);
-adminRouter.get("/wishlists/:id", authorizeUserOrAdmin, getWishlistByIdController);
-adminRouter.post("/wishlists", authorizeUserOrAdmin, createWishlistController);
-adminRouter.delete("/wishlists/:id", authorizeUserOrAdmin, deleteWishlistController);
-adminRouter.put("/wishlists/:id", authorizeUserOrAdmin, updateWishlistController);
+adminRouter.get("/wishlists", getWishlistsController);
+adminRouter.get("/wishlists/:id", getWishlistByIdController);
+adminRouter.post("/wishlists", createWishlistController);
+adminRouter.delete("/wishlists/:id", deleteWishlistController);
+adminRouter.put("/wishlists/:id", updateWishlistController);
 //credit card
-adminRouter.get("/credit_cards", authorizeUserOrAdmin, getCreditCardsController);
-adminRouter.get("/credit_cards/:id", authorizeUserOrAdmin, getCreditCardByIdController);
-adminRouter.post("/credit_cards", authorizeUserOrAdmin, createCreditCardController);
-adminRouter.delete("/credit_cards/:id", authorizeUserOrAdmin, deleteCreditCardController);
-adminRouter.put("/credit_cards/:id", authorizeUserOrAdmin, updateCreditCardController);
+adminRouter.get("/credit_cards", getCreditCardsController);
+adminRouter.get("/credit_cards/:id", getCreditCardByIdController);
+adminRouter.post("/credit_cards", createCreditCardController);
+adminRouter.delete("/credit_cards/:id", deleteCreditCardController);
+adminRouter.put("/credit_cards/:id", updateCreditCardController);
 //cart
-adminRouter.get("/carts", authorizeUserOrAdmin, getCartsController);
-adminRouter.get("/carts/:id", authorizeUserOrAdmin, getCartByIdController);
-adminRouter.post("/carts", authorizeUserOrAdmin, createCartController);
-adminRouter.delete("/carts/:id", authorizeUserOrAdmin, deleteCartController);
-adminRouter.put("/carts/:id", authorizeUserOrAdmin, updateCartController);
+adminRouter.get("/carts", getCartsController);
+adminRouter.get("/carts/:id", getCartByIdController);
+adminRouter.post("/carts", createCartController);
+adminRouter.delete("/carts/:id", deleteCartController);
+adminRouter.put("/carts/:id", updateCartController);
 //cart item
-adminRouter.get("/cart_items", authorizeUserOrAdmin, getCartItemsController);
-adminRouter.get("/cart_items/:id", authorizeUserOrAdmin, getCartItemByIdController);
-adminRouter.post("/cart_items", authorizeUserOrAdmin, createCartItemController);
-adminRouter.delete("/cart_items/:id", authorizeUserOrAdmin, deleteCartItemController);
-adminRouter.put("/cart_items/:id", authorizeUserOrAdmin, updateCartItemController);
+adminRouter.get("/cart_items", getCartItemsController);
+adminRouter.get("/cart_items/:id", getCartItemByIdController);
+adminRouter.post("/cart_items", createCartItemController);
+adminRouter.delete("/cart_items/:id", deleteCartItemController);
+adminRouter.put("/cart_items/:id", updateCartItemController);
 //order item
-adminRouter.get("/order_items", authorizeUserOrAdmin, getOrderItemsController);
-adminRouter.get("/order_items/:id", authorizeUserOrAdmin, getOrderItemByIdController);
-adminRouter.post("/order_items", authorizeUserOrAdmin, createOrderItemController);
-adminRouter.delete("/order_items/:id", authorizeUserOrAdmin, deleteOrderItemController);
-adminRouter.put("/order_items/:id", authorizeUserOrAdmin, updateOrderItemController);
+adminRouter.get("/order_items", getOrderItemsController);
+adminRouter.get("/order_items/:id", getOrderItemByIdController);
+adminRouter.post("/order_items", createOrderItemController);
+adminRouter.delete("/order_items/:id", deleteOrderItemController);
+adminRouter.put("/order_items/:id", updateOrderItemController);
 //product category
-adminRouter.get("/product_categories", authorizeUserOrAdmin, getProductCategoriesController);
-adminRouter.get("/product_categories/:id", authorizeUserOrAdmin, getProductCategoryByIdController);
-adminRouter.post("/product_categories", authorizeUserOrAdmin, createProductCategoryController);
-adminRouter.delete("/product_categories/:id", authorizeUserOrAdmin, deleteProductCategoryController);
-adminRouter.put("/product_categories/:id",authorizeUserOrAdmin,updateProductCategoryController); 
+adminRouter.get("/product_categories", getProductCategoriesController);
+adminRouter.get("/product_categories/:id", getProductCategoryByIdController);
+adminRouter.post("/product_categories", createProductCategoryController);
+adminRouter.delete("/product_categories/:id", deleteProductCategoryController);
+adminRouter.put( "/product_categories/:id",updateProductCategoryController);
 //product image
-adminRouter.get("/product_images", authorizeUserOrAdmin, getProductImagesController);
-adminRouter.get("/product_images/:id", authorizeUserOrAdmin, getProductImageByIdController);
-adminRouter.post("/product_images", authorizeUserOrAdmin, createProductImageController);
-adminRouter.delete("/product_images/:id", authorizeUserOrAdmin, deleteProductImageController);
-adminRouter.put("/product_images/:id", authorizeUserOrAdmin, updateProductImageController); 
+adminRouter.get("/product_images", getProductImagesController);
+adminRouter.get("/product_images/:id", getProductImageByIdController);
+adminRouter.post("/product_images", createProductImageController);
+adminRouter.delete("/product_images/:id", deleteProductImageController);
+adminRouter.put("/product_images/:id", updateProductImageController);
 //address
-adminRouter.get("/addresses", authorizeUserOrAdmin, getAddressesController);
-adminRouter.get("/addresses/:id", authorizeUserOrAdmin, getAddressByIdController);
-adminRouter.post("/addresses", authorizeUserOrAdmin, createAddressController);
-adminRouter.delete("/addresses/:id", authorizeUserOrAdmin, deleteAddressController);
-adminRouter.put("/addresses/:id", authorizeUserOrAdmin, updateAddressController);
+adminRouter.get("/addresses", getAddressesController);
+adminRouter.get("/addresses/:id", getAddressByIdController);
+adminRouter.post("/addresses", createAddressController);
+adminRouter.delete("/addresses/:id", deleteAddressController);
+adminRouter.put("/addresses/:id", updateAddressController);
 
 export default adminRouter;

@@ -18,17 +18,17 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api/auth", authRoutes);
-app.use("/users", userRoutes);
-app.use("/products", productsRouter);
-app.use("/categories", catogryRouter);
-app.use("/wishlists", wishlistRouter);
-app.use("/credit_cards", creditCardRouter);
-app.use("/orders", orderRouter);
-app.use("/cart_items", cart_itemRouter);
-app.use("/order_items", orderItemRouter);
-app.use("/product_catogry", productCategoryRouter);
-app.use("/product_img", productImgRouter);
 
+app.use("/user/users", userRoutes);
+app.use("/user//products", productsRouter);
+app.use("/user/categories", catogryRouter);
+app.use("/user/wishlists", wishlistRouter);
+app.use("/user/credit_cards", creditCardRouter);
+app.use("/user/orders", orderRouter);
+app.use("/user/cart_items", cart_itemRouter);
+app.use("/user/order_items", orderItemRouter);
+app.use("/user/product_catogry", productCategoryRouter);
+app.use("/user/product_img", productImgRouter);
 
 app.use("/admin", adminRouter);
 

@@ -7,18 +7,16 @@ import {
   getOrderItemsController,
   updateOrderItemController,
 } from "../controllers/order_item.controller";
-import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
 const orderItemRouter = Router();
 
 orderItemRouter.use(withAuth(ROLES.USER));
 
-orderItemRouter.get("/", authorizeUserOrAdmin, getOrderItemsController);
-orderItemRouter.get("/:id", authorizeUserOrAdmin, getOrderItemByIdController);
-orderItemRouter.post("/", authorizeUserOrAdmin, createOrderItemController);
-orderItemRouter.delete("/:id", authorizeUserOrAdmin, deleteOrderItemController);
-orderItemRouter.put("/:id", authorizeUserOrAdmin, updateOrderItemController); 
+orderItemRouter.get("/", getOrderItemsController);
+orderItemRouter.get("/:id", getOrderItemByIdController);
+orderItemRouter.post("/", createOrderItemController);
+orderItemRouter.delete("/:id", deleteOrderItemController);
+orderItemRouter.put("/:id", updateOrderItemController);
 
 export default orderItemRouter;
-

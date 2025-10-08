@@ -9,7 +9,8 @@ import {
 
 export async function getCategoriesController(req: Request, res: Response) {
   try {
-    const categories = await getAllCategories();
+    const { user } = res.locals;
+    const categories = await getAllCategories(user.role, +user.id);
     res.status(200).json({
       success: true,
       data: categories,
@@ -61,7 +62,8 @@ export async function createCategoryController(req: Request, res: Response) {
 export async function deleteCategoryController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteCategory(Number(id));
+    const { user } = res.locals;
+    await deleteCategory(Number(id),+user.id);
     res.status(200).json({
       success: true,
       message: "Category deleted successfully",
@@ -78,11 +80,12 @@ export async function deleteCategoryController(req: Request, res: Response) {
 export async function updateCategoryController(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    const { user } = res.locals;  
     const { name, parent_id } = req.body;
     let updatedData: { name?: string; parent_id?: number } = {};
     if (name) updatedData.name = name;
     if (parent_id) updatedData.parent_id = parent_id;
-    const result = await updateCategory(Number(id), updatedData);
+    const result = await updateCategory(+id,+user.id, updatedData);
 
     res.status(200).json({
       success: true,

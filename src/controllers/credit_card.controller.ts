@@ -9,7 +9,8 @@ import {
 
 export async function getCreditCardsController(req: Request, res: Response) {
   try {
-    const creditCards = await getAllCreditCards();
+    const { user } = res.locals;
+    const creditCards = await getAllCreditCards(user.role,+user.id);
     res.status(200).json({
       success: true,
       data: creditCards,
@@ -66,7 +67,8 @@ export async function createCreditCardController(req: Request, res: Response) {
 export async function deleteCreditCardController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteCreditCard(+id);
+    const { user } = res.locals;
+    await deleteCreditCard(+id,+user.id);
     res.status(200).json({
       success: true,
       message: "Credit card deleted successfully",
@@ -83,8 +85,9 @@ export async function deleteCreditCardController(req: Request, res: Response) {
 export async function updateCreditCardController(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    const { user } = res.locals;
     const { user_id, card_number, expire_date, type } = req.body;
-    const creditCard = await updateCreditCard(+id, {
+    const creditCard = await updateCreditCard(+id,+user.id, {
       user_id,
       card_number,
       expire_date,

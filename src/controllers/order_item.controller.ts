@@ -9,7 +9,8 @@ import {
 
 export async function getOrderItemsController(req: Request, res: Response) {
   try {
-    const orderItems = await getAllOrderItems();
+    const { user } = res.locals;
+    const orderItems = await getAllOrderItems(user.role,+user.id);
     res.status(200).json({
       success: true,
       data: orderItems,
@@ -65,7 +66,8 @@ export async function createOrderItemController(req: Request, res: Response) {
 export async function deleteOrderItemController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteOrderItem(+id);
+    const { order_id } = req.body;
+    await deleteOrderItem(+id,+order_id);
     res.status(200).json({
       success: true,
       message: "Order item deleted successfully",
@@ -101,7 +103,7 @@ export async function updateOrderItemController(req: Request, res: Response) {
       price_at_purchase,
     };
 
-    const result = await updateOrderItem(+id, updatedData);
+    const result = await updateOrderItem(+id,+order_id, updatedData);
 
     res.status(200).json({
       success: true,

@@ -5,17 +5,16 @@ import {
   deleteWishlistController,
   getWishlistByIdController,
   getWishlistsController,
-  updateWishlistController
+  updateWishlistController,
 } from "../controllers/wishlist.controller";
-import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
 const wishlistRouter = Router();
 wishlistRouter.use(withAuth(ROLES.USER));
 
-wishlistRouter.get("/", authorizeUserOrAdmin, getWishlistsController);
-wishlistRouter.post("/", authorizeUserOrAdmin, createWishlistController);
-wishlistRouter.delete("/:id", authorizeUserOrAdmin, deleteWishlistController);
-wishlistRouter.put("/:id", authorizeUserOrAdmin, updateWishlistController);
+wishlistRouter.get("/", getWishlistsController);
+wishlistRouter.post("/", createWishlistController);
+wishlistRouter.delete("/:id", deleteWishlistController);
+wishlistRouter.put("/:id", updateWishlistController);
 
 export default wishlistRouter;

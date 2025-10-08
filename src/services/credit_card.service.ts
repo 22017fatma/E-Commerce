@@ -1,11 +1,18 @@
 import { db } from "../db/client";
 import { credit_cards } from "../models/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
+import { ROLES } from "../types";
 
 
-export async function getAllCreditCards() {
-  return await db.select().from(credit_cards);
-};
+export async function getAllCreditCards(role: ROLES, userId: number) {
+  if (role === ROLES.ADMIN) {
+    return await db.select().from(credit_cards);
+  }
+  if (role === ROLES.USER) {
+    return await db.select().from(credit_cards).where(eq(credit_cards.user_id, userId));
+  }
+}
+  
 
 export async function getCreditCardById(id: number) {
   return await db.select().from(credit_cards).where(eq(credit_cards.id, id));
@@ -26,12 +33,14 @@ export async function createCreditCard(data: {
   });
 };
 
-export async function deleteCreditCard(id: number) {
-  return await db.delete(credit_cards).where(eq(credit_cards.id, id));
+export async function deleteCreditCard(id: number, userId: number) {
+  
+  return await db.delete(credit_cards).where(and(eq(credit_cards.id,id),eq(credit_cards.user_id,userId)));
 };
 
 export async function updateCreditCard(
   id: number,
+  userId:number,
   data: {
     user_id: number;
     card_number: string;
@@ -39,6 +48,7 @@ export async function updateCreditCard(
     type: string;
   }
 ) {
-  return await db.update(credit_cards).set(data).where(eq(credit_cards.id, id));
+  return await db.update(credit_cards).set(data).where(and(eq(credit_cards.id,id),eq(credit_cards.user_id,userId)));
+
 };  
 

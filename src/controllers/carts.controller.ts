@@ -9,7 +9,8 @@ import {
 
 export async function getCartsController(req: Request, res: Response) {
   try {
-    const carts = await getAllCarts();
+    const { user } = res.locals;
+    const carts = await getAllCarts(user.role, +user.id);
     res.status(200).json({
       success: true,
       data: carts,
@@ -61,7 +62,8 @@ export async function createCartController(req: Request, res: Response) {
 export async function deleteCartController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteCart(+id);
+    const { user } = res.locals;
+    await deleteCart(+id, +user.id);
     res.status(200).json({
       success: true,
       message: "Cart deleted successfully",
@@ -78,10 +80,11 @@ export async function deleteCartController(req: Request, res: Response) {
 export async function updateCartController(req: Request, res: Response) {
   try {
     const { id } = req.params;
+    const { user } = res.locals;
     const { user_id } = req.body;
     let updatedData: { user_id?: number } = {};
     if (user_id) updatedData.user_id = user_id;
-    const result = await updateCart(+id, updatedData);
+    const result = await updateCart(+id, +user.id, updatedData);
     res.status(200).json({
       success: true,
       message: "Cart updated successfully",
@@ -94,4 +97,4 @@ export async function updateCartController(req: Request, res: Response) {
       error: (error as Error).message,
     });
   }
-} 
+}

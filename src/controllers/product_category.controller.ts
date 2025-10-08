@@ -9,7 +9,8 @@ import {
 
 export async function getProductCategoriesController( req: Request,res: Response) {
   try {
-    const productCategories = await getAllProductCategories();
+    const { user } = res.locals;
+    const productCategories = await getAllProductCategories(user.role, +user.id);
     res.status(200).json({
       success: true,
       data: productCategories,
@@ -64,7 +65,8 @@ export async function createProductCategoryController( req: Request, res: Respon
 export async function deleteProductCategoryController( req: Request, res: Response) {
   try {
     const { id } = req.params;
-    await deleteProductCategory(+id);
+    const{category_id}=req.body;
+    await deleteProductCategory(+id,+category_id);
     res.status(200).json({
       success: true,
       message: "Product category deleted successfully",
@@ -97,7 +99,7 @@ export async function updateProductCategoryController( req: Request, res: Respon
       category_id,
       product_id,
     };
-    const result = await updateProductCategory(+id, updatedData);
+    const result = await updateProductCategory(+id,category_id, updatedData);
     res.status(200).json({
       success: true,
       message: "Product category updated successfully",

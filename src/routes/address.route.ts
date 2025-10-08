@@ -7,17 +7,16 @@ import {
   getAddressesController,
   updateAddressController,
 } from "../controllers/address.controller";
-import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
 const addressRouter = Router();
 
 addressRouter.use(withAuth(ROLES.USER));
 
-addressRouter.get("/", authorizeUserOrAdmin, getAddressesController);
-addressRouter.get("/:id", authorizeUserOrAdmin, getAddressByIdController);
-addressRouter.post("/", authorizeUserOrAdmin, createAddressController);
-addressRouter.delete("/:id", authorizeUserOrAdmin, deleteAddressController);
-addressRouter.put("/:id", authorizeUserOrAdmin, updateAddressController);   
+addressRouter.get("/", getAddressesController);
+addressRouter.get("/:id", getAddressByIdController);
+addressRouter.post("/", createAddressController);
+addressRouter.delete("/:id", deleteAddressController);
+addressRouter.put("/:id", updateAddressController);
 
 export default addressRouter;

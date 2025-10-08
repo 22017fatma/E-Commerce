@@ -5,19 +5,18 @@ import {
   deleteProductCategoryController,
   getProductCategoryByIdController,
   getProductCategoriesController,
-  updateProductCategoryController
+  updateProductCategoryController,
 } from "../controllers/product_category.controller";
-import { authorizeUserOrAdmin } from "../middlewares/users.middleware";
 import { ROLES } from "../types";
 
 const productCategoryRouter = Router();
 
 productCategoryRouter.use(withAuth(ROLES.USER));
 
-productCategoryRouter.get("/", authorizeUserOrAdmin, getProductCategoriesController);
-productCategoryRouter.get("/:id", authorizeUserOrAdmin, getProductCategoryByIdController);
-productCategoryRouter.post("/", authorizeUserOrAdmin, createProductCategoryController);
-productCategoryRouter.delete("/:id", authorizeUserOrAdmin, deleteProductCategoryController);
-productCategoryRouter.put("/:id", authorizeUserOrAdmin, updateProductCategoryController); 
+productCategoryRouter.get("/", getProductCategoriesController);
+productCategoryRouter.get("/:id", getProductCategoryByIdController);
+productCategoryRouter.post("/", createProductCategoryController);
+productCategoryRouter.delete("/:id", deleteProductCategoryController);
+productCategoryRouter.put("/:id", updateProductCategoryController);
 
 export default productCategoryRouter;
