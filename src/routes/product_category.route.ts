@@ -15,8 +15,6 @@ productCategoryRouter.use(withAuth(ROLES.USER));
 
 productCategoryRouter.get("/", getProductCategoriesController);
 productCategoryRouter.get("/:id", getProductCategoryByIdController);
-productCategoryRouter.post("/", createProductCategoryController);
-productCategoryRouter.delete("/:id", deleteProductCategoryController);
-productCategoryRouter.put("/:id", updateProductCategoryController);
+
 
 export default productCategoryRouter;

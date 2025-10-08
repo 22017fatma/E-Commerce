@@ -13,6 +13,5 @@ userRoutes.use(withAuth(ROLES.USER));
 
 userRoutes.get("/:id", getUserByIdController);
 userRoutes.put("/:id", updateUserController);
-userRoutes.delete("/:id", deleteUserController);
 
 export default userRoutes;
