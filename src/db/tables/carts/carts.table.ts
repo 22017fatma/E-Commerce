@@ -14,13 +14,10 @@ export const carts = mysqlTable("carts", {
   updated_at: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
 });
 
-export const cartsRelationWithUser = relations(carts, ({ one }) => ({
-  users: one(users, {
+export const cartsRelations = relations(carts, ({ one, many }) => ({
+  user: one(users, {
     fields: [carts.user_id],
     references: [users.id],
   }),
-}));
-
-export const cartsRelationWithCartsItems = relations(carts, ({ many }) => ({
   cart_items: many(cart_items),
 }));

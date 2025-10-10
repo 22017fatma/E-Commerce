@@ -1,4 +1,3 @@
-
 import {
   addresses,
   addressessRelationWithUsers,
@@ -8,11 +7,7 @@ import {
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
 } from "../db/tables/carts/cart_items.table";
-import {
-  carts,
-  cartsRelationWithCartsItems,
-  cartsRelationWithUser,
-} from "../db/tables/carts/carts.table";
+import { carts, cartsRelations } from "../db/tables/carts/carts.table";
 import {
   categories,
   categoriesRelationWithProductCategories,
@@ -49,12 +44,7 @@ import {
   product_imagesManyRelation,
   wishlistsManyRelation,
 } from "../db/tables/products/products.table";
-import {
-  users,
-  usersRelationWithCarts,
-  usersRelationWithCreditCards,
-  usersRelationWithwhishlists,
-} from "../db/tables/users.table";
+import { users, usersRelations } from "../db/tables/users.table";
 import {
   wishlists,
   wishlistsRelation,
@@ -78,8 +68,6 @@ export const schema = {
   addressessRelationWithUsers,
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
-  cartsRelationWithCartsItems,
-  cartsRelationWithUser,
   categoriesRelationWithProductCategories,
   cart_cardRelation,
   credit_cardManyRelation,
@@ -94,11 +82,10 @@ export const schema = {
   productManyRelation,
   product_imagesManyRelation,
   wishlistsManyRelation,
-  usersRelationWithCarts,
-  usersRelationWithCreditCards,
-  usersRelationWithwhishlists,
+  usersRelations,
   wishlistsRelation,
   wishlistsRelationWithUsers,
+  cartsRelations,
 };
 
 export {
@@ -119,8 +106,7 @@ export {
   addressessRelationWithUsers,
   cart_itemsRelation,
   cartsItemsRelationWithCarts,
-  cartsRelationWithCartsItems,
-  cartsRelationWithUser,
+  cartsRelations,
   categoriesRelationWithProductCategories,
   cart_cardRelation,
   credit_cardManyRelation,
@@ -136,9 +122,7 @@ export {
   productManyRelation,
   product_imagesManyRelation,
   wishlistsManyRelation,
-  usersRelationWithCarts,
-  usersRelationWithCreditCards,
-  usersRelationWithwhishlists,
+  usersRelations,
   wishlistsRelation,
   wishlistsRelationWithUsers,
 };

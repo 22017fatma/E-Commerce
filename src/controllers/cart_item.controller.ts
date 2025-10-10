@@ -3,14 +3,18 @@ import {
   createCartItem,
   deleteCartItem,
   getCartItemById,
-  getAllCartItems,  
-  updateCartItem
+  getAllCartItems,
+  updateCartItem,
 } from "../services/cart_item.service";
 
-export async function getCartItemsController(req: Request, res: Response) {
+export async function getCartItemsController(
+  req: Request<unknown, unknown, { cartId: number }>,
+  res: Response
+) {
   try {
     const { user } = res.locals;
-    const cartItems = await getAllCartItems(user.role, +user.id);
+    const { cartId } = req.body;
+    const cartItems = await getAllCartItems(user.role, cartId, +user.id);
     res.status(200).json({
       success: true,
       data: cartItems,
@@ -22,7 +26,7 @@ export async function getCartItemsController(req: Request, res: Response) {
       error: (error as Error).message,
     });
   }
-}     
+}
 
 export async function getCartItemByIdController(req: Request, res: Response) {
   try {
@@ -39,7 +43,7 @@ export async function getCartItemByIdController(req: Request, res: Response) {
       error: (error as Error).message,
     });
   }
-}           
+}
 
 export async function createCartItemController(req: Request, res: Response) {
   try {
@@ -66,8 +70,9 @@ export async function createCartItemController(req: Request, res: Response) {
 export async function deleteCartItemController(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const{cart_id}=req.body;
-    await deleteCartItem(+id,+cart_id);
+    const { cart_id } = req.body;
+    const { user } = res.locals;
+    await deleteCartItem(+id, +cart_id, +user.id);
     res.status(200).json({
       success: true,
       message: "Cart item deleted successfully",
@@ -85,11 +90,16 @@ export async function updateCartItemController(req: Request, res: Response) {
   try {
     const { id } = req.params;
     const { cart_id, product_id, quantity } = req.body;
-    let updatedData: { cart_id?: number; product_id?: number; quantity?: number } = {};
+    let updatedData: {
+      cart_id?: number;
+      product_id?: number;
+      quantity?: number;
+    } = {};
     if (cart_id) updatedData.cart_id = cart_id;
     if (product_id) updatedData.product_id = product_id;
     if (quantity) updatedData.quantity = quantity;
-    const result = await updateCartItem(+id,+cart_id, updatedData);
+    const { user } = res.locals;
+    const result = await updateCartItem(+id, +cart_id, +user.id, updatedData);
     res.status(200).json({
       success: true,
       message: "Cart item updated successfully",
@@ -102,4 +112,4 @@ export async function updateCartItemController(req: Request, res: Response) {
       error: (error as Error).message,
     });
   }
-} 
+}

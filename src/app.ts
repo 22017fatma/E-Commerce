@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 app.use("/user/users", userRoutes);
-app.use("/user//products", productsRouter);
+app.use("/user/products", productsRouter);
 app.use("/user/categories", catogryRouter);
 app.use("/user/wishlists", wishlistRouter);
 app.use("/user/credit_cards", creditCardRouter);

@@ -1,5 +1,5 @@
 import { db } from "../db/client";
-import { products } from "../models/schema";
+import { product_categories, products } from "../models/schema";
 import { gt, and, gte, lte, like, SQL } from "drizzle-orm";
 import { eq } from "drizzle-orm";
 
@@ -9,9 +9,8 @@ export async function getAllProducts(filters: ProductFilters = {}) {
   const parsedStock = filters.stock
     ? Number(filters.stock)
       ? Number(filters.stock) <= 0
-       ? 0
-       :Number(filters.stock)
-    
+        ? 0
+        : Number(filters.stock)
       : undefined
     : undefined;
 
@@ -44,14 +43,18 @@ export async function getAllProducts(filters: ProductFilters = {}) {
 
   return await db.query.products.findMany({
     where,
+    with: {
+      product_images: true,
+      product_categories: true,
+    },
   });
-};
+}
 //  Get product by ID
 export async function getProductById(id: number) {
   return await db.query.products.findFirst({
     where: eq(products.id, id),
   });
-};
+}
 
 // Add product
 export async function addProduct(name: string, price: string, stock: number) {
@@ -59,14 +62,18 @@ export async function addProduct(name: string, price: string, stock: number) {
 }
 
 //  Update product
-export async function updateProduct(id: number, name?: string, price?: string, stock?: number) {
+export async function updateProduct(
+  id: number,
+  name?: string,
+  price?: string,
+  stock?: number
+) {
   return await db
     .update(products)
     .set({ name, price, stock })
     .where(eq(products.id, id));
 }
-;
 // Delete product
 export async function deleteProduct(id: number) {
   return await db.delete(products).where(eq(products.id, id));
-};
+}

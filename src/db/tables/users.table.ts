@@ -18,14 +18,10 @@ export const users = mysqlTable("users", {
   updated_at: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
 });
 
-export const usersRelationWithwhishlists = relations(users, ({ one }) => ({
-  wishlists: one(wishlists),
-}));
-
-export const usersRelationWithCreditCards = relations(users, ({ many }) => ({
-  credit_cards: many(credit_cards),
-}));
-
-export const usersRelationWithCarts = relations(users, ({ many }) => ({
-  carts: many(carts),
-}));
+export const usersRelations = relations(
+  users,
+  ({ one, many }) => ({
+    wishlist: one(wishlists),
+    credit_cards: many(credit_cards),
+  })
+);
